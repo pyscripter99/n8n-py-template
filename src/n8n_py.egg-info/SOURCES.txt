@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+src/n8n_py/__init__.py
+src/n8n_py/core.py
+src/n8n_py/handler.py
+src/n8n_py.egg-info/PKG-INFO
+src/n8n_py.egg-info/SOURCES.txt
+src/n8n_py.egg-info/dependency_links.txt
+src/n8n_py.egg-info/top_level.txt

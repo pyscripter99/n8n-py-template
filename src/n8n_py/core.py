@@ -17,22 +17,18 @@ class Argument:
     description: str
     required: bool = False
     name: str = field(init=False)
-    owner: str = field(init=False)
+    func: str = field(init=False)
     type: ArgumentType = field(init=False)
 
 
 @dataclass(kw_only=True)
 class String(Argument):
     default: str
-    placeholder: str = ""
     type = ArgumentType.STRING
 
 
 @dataclass(kw_only=True)
 class Number(Argument):
-    minimum: int | None = None
-    maximum: int | None = None
-    precision: int = 1
     default: int
     type = ArgumentType.NUMBER
 
@@ -51,7 +47,7 @@ class Options(Argument):
 
 
 @dataclass(kw_only=True)
-class MultiOptions(Argument):
+class _MultiOptions(Argument):
     enum: Enum
     default: list[any]
     type = ArgumentType.MULTI_OPTIONS
@@ -85,10 +81,16 @@ def expose_function(
         for param in arguments.keys():
             arg: Argument = arguments[param]
             arg.name = param
-            arg.owner = func_.name
+            if (
+                arg.type == ArgumentType.OPTIONS
+                or arg.type == ArgumentType.MULTI_OPTIONS
+            ):
+                arg.enum = list(map(lambda c: c.value, arg.enum))
+            arg.type = arg.type.value
+            arg.func = func_.name
             func_.arguments.append(arg)
-        func_.arguments = [arg for arg in func_.arguments if arg.owner == func_.name]
         func_.func = func
+        func_.arguments = [arg for arg in func_.arguments if arg.func == func_.name]
 
         _functions.append(func_)
 

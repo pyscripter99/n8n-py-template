@@ -1,0 +1,20 @@
+[project]
+name = "n8n_py"
+version = "0.0.1"
+authors = [{ name = "pyscripter99", email = "ryder@retzlaff.family" }]
+description = "Python SDK for n8n-nodes-python-function"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"License :: OSI Approved || GNU License",
+	"Operating System :: OS Independant",
+]
+
+[project.urls]
+Homepage = "https://github.com/pyscripter99/n8n-py"
+Issues = "http://github.com/pyscripter99/n8n-py/issues"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
